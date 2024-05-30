@@ -1,6 +1,19 @@
 export default defineNuxtConfig({
   // Get all the pages, components, composables and plugins from the parent theme
   extends: ['./woonuxt_base'],
+  modules: [
+    '@vernaillen/wpnuxt'
+  ],
+  wpNuxt: {
+    wordpressUrl: 'https://woo.wpnuxt.com',
+    blocks: false,
+    enableCache: false,
+    logLevel: 4,
+    generateComposables: {
+      enabled: true
+    }
+  },
+
   components: [{ path: './components', pathPrefix: false }],
 
   /**
@@ -17,5 +30,9 @@ export default defineNuxtConfig({
       interval: 1000,
       failOnError: false,
     },
+  },
+
+  routeRules: {
+    '/wp-content/**': { proxy: { to: 'https://woo.wpnuxt.com/wp-content/**' } }
   },
 });
